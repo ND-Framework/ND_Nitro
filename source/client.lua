@@ -238,7 +238,7 @@ CreateThread(function()
                 if mph < 5.0 then
                     SetControlNormal(0, 71, 0.5)
                 else
-                    local multiplier =  2.0 * maxSpeed / speed
+                    local multiplier =  2.0 * maxSpeed / GetEntitySpeed(veh)
                     SetVehicleCheatPowerIncrease(veh, multiplier)
                 end
 
