@@ -231,7 +231,8 @@ CreateThread(function()
                 local mph = speed * 2.236936
 
                 local thisModel = GetEntityModel(veh)
-                if model ~= thisModel then
+                if model ~= thisModel or maxSpeed == 0 then
+                    model = thisModel
                     maxSpeed = GetVehicleModelMaxSpeed(model)
                 end
 
