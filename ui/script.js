@@ -2,12 +2,16 @@ const bar = document.querySelectorAll(".bar");
 const nos = document.querySelector(".nos");
 const purge = document.querySelector(".purge");
 
-function fadeIn(element) {
-    element.style.display = "block";
+function fadeIn(elements) {
+    elements.forEach(function(element) {
+        element.style.display = "block";
+    });
 }
 
-function fadeOut(element) {
-    element.style.display = "none";
+function fadeOut(elements) {
+    elements.forEach(function(element) {
+        element.style.display = "none";
+    });
 }
 
 function setStatus(status) {
