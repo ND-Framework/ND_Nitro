@@ -15,7 +15,7 @@ files {
 }
 ui_page "ui/index.html"
 
-server_script "source/server.lua"
 client_scripts {
+    "@ox_lib/init.lua",
     "source/client.lua"
 }
