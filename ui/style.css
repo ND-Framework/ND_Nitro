@@ -12,6 +12,7 @@
 }
 
 .bar {
+    display: none;
     margin: auto;
     width: 100%;
     height: 100%;
@@ -26,7 +27,7 @@
     height: 100%;
     max-width: 100%;
     border-radius: 25px;
-    transition: 500ms linear;
+    transition: 1s linear;
 }
 
 .nos {
