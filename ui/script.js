@@ -1,4 +1,4 @@
-const bar = document.querySelector(".bar");
+const bar = document.querySelectorAll(".bar");
 const nos = document.querySelector(".nos");
 const purge = document.querySelector(".purge");
 
