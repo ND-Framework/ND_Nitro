@@ -21,6 +21,7 @@
     }
 },
 ```
+![nos](https://github.com/ND-Framework/ND_Nitro/assets/86536434/2c96ba07-b87e-46e9-9d27-4bffface3224)
 
 # Need support?
 [![Need Support?](https://user-images.githubusercontent.com/86536434/147299047-73691b78-2690-4786-b58b-27d24e48a0d2.png)](https://discord.gg/Z9Mxu72zZ6)
