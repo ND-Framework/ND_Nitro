@@ -10,12 +10,12 @@ lua54 "yes"
 
 files {
 	"ui/index.html",
-	"ui/script.js",
-	"ui/style.css"
+	"ui/style.css",
+	"ui/script.js"
 }
 ui_page "ui/index.html"
 
-server_script "source/server.lua"
 client_scripts {
+    "@ox_lib/init.lua",
     "source/client.lua"
 }
