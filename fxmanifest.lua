@@ -2,7 +2,7 @@
 
 author "Andyyy#7666"
 description "Nitro for vehicles"
-version "2.0.0"
+version "2.0.1"
 
 fx_version "cerulean"
 game "gta5"
