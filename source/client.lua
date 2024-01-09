@@ -80,6 +80,9 @@ local function startedNos(veh)
 
     if purgelvl < 100 then
         local lvl = purgelvl+4.0
+        if lvl > 100 then
+            lvl = 100
+        end
         vehicleSetValue("purge", lvl)
         if preventNitro then
             preventNitro = false
@@ -90,9 +93,12 @@ local function startedNos(veh)
     end
 
     local lvl = noslvl-1.0
+    if lvl < 0 then
+        lvl = 0
+    end
     vehicleSetValue("nos", lvl)
 
-    if noslvl < 1 then
+    if lvl <= 0 then
         vehicleActivate(veh, "flames", false)
         vehicleActivate(veh, "purge", false)
         setHUD(false)
@@ -107,10 +113,21 @@ local function startedPurge(veh)
     end
     if purgelvl > 0 then
         local lvl = purgelvl-15.0
+        if lvl < 0 then
+            lvl = 0
+        end
         vehicleSetValue("purge", lvl)
-    elseif purgelvl < 0 then
+    elseif purgelvl == 0 then
         local lvl = noslvl-5.0
+        if lvl < 0 then
+            lvl = 0
+        end
         vehicleSetValue("nos", lvl)
+        if lvl <= 0 then
+            vehicleActivate(veh, "flames", false)
+            vehicleActivate(veh, "purge", false)
+            setHUD(false)
+        end
     end
 end
 
@@ -147,7 +164,7 @@ local function nitroCheck(veh)
         SetTimecycleModifier("rply_motionblur")
         ShakeGameplayCam("SKY_DIVING_SHAKE", 0.25)
     end
-    
+
     return true
 end
 
