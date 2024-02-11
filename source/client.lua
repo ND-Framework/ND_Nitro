@@ -15,6 +15,18 @@ local function setHUD(status)
     })
 end
 
+local function enableScreenEffect(enable)
+    if enable then
+        screenEffect = true
+        SetTimecycleModifier("rply_motionblur")
+        ShakeGameplayCam("SKY_DIVING_SHAKE", 0.25)
+        return
+    end
+    screenEffect = false
+    StopGameplayCamShaking(true)
+    SetTransitionTimecycleModifier("default", 0.35)
+end
+
 ---@param checkDriver boolean
 ---@return boolean
 local function isInVehicle(checkDriver)
@@ -155,14 +167,10 @@ local function nitroCheck(veh)
         SetVehicleCheatPowerIncrease(veh, multiplier)
     end
 
-    if screenEffect and mph < 60.0 then
-        screenEffect = false
-        StopGameplayCamShaking(true)
-        SetTransitionTimecycleModifier("default", 0.35)
-    elseif not screenEffect and mph > 60.0 then
-        screenEffect = true
-        SetTimecycleModifier("rply_motionblur")
-        ShakeGameplayCam("SKY_DIVING_SHAKE", 0.25)
+    if screenEffect and mph < 15.0 then
+        enableScreenEffect(false)
+    elseif not screenEffect and mph > 15.0 then
+        enableScreenEffect(true)
     end
 
     return true
@@ -215,6 +223,10 @@ keybindNos = lib.addKeybind({
         end)
     end,
     onReleased = function(self)
+        if screenEffect then
+            enableScreenEffect(false)
+        end
+        
         self.isPressed = false
         local veh = isInVehicle(true)
         if not veh or not DoesEntityExist(veh) or not vehicleHasNitro(veh) then return end
@@ -262,6 +274,9 @@ end)
 
 lib.onCache("vehicle", function(value)
     local isDriver = GetPedInVehicleSeat(value, -1) == cache.ped
+    if not value and screenEffect then
+        enableScreenEffect(false)
+    end
     if not isDriver or not value then
         return setHUD(false)
     end
@@ -291,9 +306,8 @@ AddStateBagChangeHandler("nd_nitro_activated_flames", nil, function(bagName, key
         if driver then
             SetVehicleCheatPowerIncrease(entity, 1.0)
         end
-        if driver or passenger then            
-            StopGameplayCamShaking(true)
-            SetTransitionTimecycleModifier("default", 0.35)
+        if driver or passenger and screenEffect then
+            enableScreenEffect(false)
         end
         return
     end
@@ -303,6 +317,9 @@ AddStateBagChangeHandler("nd_nitro_activated_flames", nil, function(bagName, key
         local state = Entity(entity).state
         while state.nd_nitro_activated_flames and nitroCheck(entity) do
             Wait(0)
+        end
+        if screenEffect then
+            enableScreenEffect(false)
         end
     end)
 end)
